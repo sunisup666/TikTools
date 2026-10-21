@@ -1,0 +1,10 @@
+<resources>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#176A63</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowBackground">#F3F6F5</item>
+    </style>
+    <string-array name="xposed_scope"><item>com.ss.android.ugc.trill</item><item>com.zhiliaoapp.musically</item></string-array>
+</resources>

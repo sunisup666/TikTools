@@ -1,0 +1,16 @@
+.gradle/
+.gradle-home/
+**/build/
+local.properties
+*.jks
+*.keystore
+test-artifacts/
+releases/
+build-result.json
+build-output.log
+validation.json
+__pycache__/
+*.pyc
+.publishing*/
+.idea/
+*.iml

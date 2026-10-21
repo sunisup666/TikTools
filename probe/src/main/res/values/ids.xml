@@ -1,0 +1,8 @@
+<resources>
+    <item type="id" name="sample_author"/><item type="id" name="sample_caption"/>
+    <item type="id" name="sample_music"/><item type="id" name="sample_comment"/>
+    <item type="id" name="sample_location"/><item type="id" name="sample_topbar"/>
+    <item type="id" name="sample_channel"/><item type="id" name="sample_tabbar"/>
+    <item type="id" name="sample_sidebtn"/><item type="id" name="sample_logo"/>
+    <item type="id" name="sample_translate"/><item type="id" name="sample_paywall"/>
+</resources>

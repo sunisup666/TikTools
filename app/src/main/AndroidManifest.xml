@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <queries>
+        <package android:name="com.ss.android.ugc.trill"/>
+        <package android:name="com.zhiliaoapp.musically"/>
+        <package android:name="io.github.sunisup666.tiktools.probe"/>
+    </queries>
+    <application android:label="TikTools" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:supportsRtl="true">
+        <meta-data android:name="xposedmodule" android:value="true"/>
+        <meta-data android:name="xposeddescription" android:value="TikTok 区域、定位、设备信息和界面工具；功能独立开关，提供本机诊断。"/>
+        <meta-data android:name="xposedminversion" android:value="82"/>
+        <meta-data android:name="xposedscope" android:resource="@array/xposed_scope"/>
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter><action android:name="android.intent.action.APPLICATION_PREFERENCES"/><category android:name="android.intent.category.DEFAULT"/></intent-filter>
+        </activity>
+        <activity android:name=".MapActivity" android:exported="false"/>
+        <activity-alias android:name=".LauncherAlias" android:targetActivity=".MainActivity" android:exported="true" android:enabled="true">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+        </activity-alias>
+        <provider android:name=".SettingsProvider" android:authorities="io.github.sunisup666.tiktools.settings" android:exported="true" android:directBootAware="true"/>
+    </application>
+</manifest>

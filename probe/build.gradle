@@ -1,0 +1,10 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'io.github.sunisup666.tiktools.probe'
+    compileSdk 36
+    buildToolsVersion '36.1.0'
+    defaultConfig { applicationId 'io.github.sunisup666.tiktools.probe'; minSdk 33; targetSdk 36; versionCode 1; versionName '0.1.0' }
+    signingConfigs { local { storeFile rootProject.file(System.getenv('TIKTOOLS_KEYSTORE') ?: 'local-signing.jks'); storePassword System.getenv('TIKTOOLS_STORE_PASSWORD') ?: 'android'; keyAlias System.getenv('TIKTOOLS_KEY_ALIAS') ?: 'trillkit'; keyPassword System.getenv('TIKTOOLS_KEY_PASSWORD') ?: 'android' } }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.local } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

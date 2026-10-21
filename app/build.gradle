@@ -1,0 +1,16 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'io.github.sunisup666.tiktools'
+    compileSdk 36
+    buildToolsVersion '36.1.0'
+    defaultConfig { applicationId 'io.github.sunisup666.tiktools'; minSdk 33; targetSdk 36; versionCode 5; versionName '0.4.0'; ndk { abiFilters 'arm64-v8a' } }
+    signingConfigs { local { storeFile rootProject.file(System.getenv('TIKTOOLS_KEYSTORE') ?: 'local-signing.jks'); storePassword System.getenv('TIKTOOLS_STORE_PASSWORD') ?: 'android'; keyAlias System.getenv('TIKTOOLS_KEY_ALIAS') ?: 'trillkit'; keyPassword System.getenv('TIKTOOLS_KEY_PASSWORD') ?: 'android' } }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.local } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    buildFeatures { buildConfig true }
+}
+dependencies {
+    compileOnly files('libs/xposed-api82.jar')
+    implementation 'com.google.mlkit:translate:17.0.3'
+    implementation 'com.google.mlkit:language-id:17.0.6'
+}
