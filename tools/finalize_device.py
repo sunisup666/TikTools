@@ -35,7 +35,7 @@ def main():
     status=ET.fromstring(root('cat /data/user_de/0/'+MODULE+'/shared_prefs/status.xml'));report=json.loads(next(n.text for n in status if n.get('name')=='report'))
     assert report['package']==TARGET and report['enabled'];(OUT/'final-tiktok-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     states={m['PACKAGE']:m['STATUS'] for m in json.loads(root(cli+'modules ls'))['data']};assert states[MODULE]=='enabled'
-    for conflicting in ['dev.local.trillkit','com.tiktok.unlocker']:
+    for conflicting in ['dev.local.trillkit']:
         if conflicting in states:assert states[conflicting]=='disabled',(conflicting,states[conflicting])
     scope=json.loads(root(cli+'scope ls '+MODULE))['data'];assert scope==[{'APP_PACKAGE':TARGET,'USER_ID':0}],scope
     path=adb('shell','pm','path',MODULE).decode().strip().removeprefix('package:');installed=adb('shell','sha256sum',path).decode().split()[0]

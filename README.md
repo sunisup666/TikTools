@@ -83,4 +83,4 @@ Windows 使用 `gradlew.bat`。本地 Python 构建器也可通过 `--gradle` �
 
 提交问题时请说明 TikTools、TikTok、Android 和框架版本，以及停用模块后的表现。不要公开包含登录信息、私人坐标或他人内容的原始截图。
 
-本项目独立实现，未包含 TikTok 或 GlobalKit 的实现代码，也不代表 TikTok 官方。第三方组件及地图服务信息见 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md)。项目代码版权归 sunisup666，尚未指定项目级开源许可证。
+本项目独立实现，也不代表 TikTok 官方。第三方组件及地图服务信息见 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md)。项目代码版权归 sunisup666，尚未指定项目级开源许可证。

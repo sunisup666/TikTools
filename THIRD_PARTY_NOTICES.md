@@ -1,6 +1,6 @@
 # Third-party components
 
-TikTools contains independently implemented module and settings code. It does not distribute the TikTok or GlobalKit APKs or their implementation code.
+TikTools contains independently implemented module and settings code. It is not affiliated with TikTok.
 
 ## Xposed API 82
 
