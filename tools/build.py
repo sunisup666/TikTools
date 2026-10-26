@@ -31,16 +31,20 @@ def locate_gradle(explicit):
     return candidates[0]
 
 
-def source_digest():
+def source_files():
     files = []
     for folder in ['app/src', 'probe/src', 'app/libs', 'gradle/wrapper']:
         files += [file for file in (ROOT / folder).rglob('*') if file.is_file()]
     files += [ROOT / name for name in ['settings.gradle', 'build.gradle', 'gradle.properties', 'app/build.gradle', 'probe/build.gradle']]
+    return sorted(files,key=lambda path:path.relative_to(ROOT).as_posix())
+
+
+def source_digest(reader=None):
     digest = hashlib.sha256()
-    for file in sorted(files,key=lambda path:path.relative_to(ROOT).as_posix()):
+    for file in source_files():
         digest.update(file.relative_to(ROOT).as_posix().encode())
         digest.update(b'\0')
-        digest.update(file.read_bytes())
+        digest.update(file.read_bytes() if reader is None else reader(file))
     return digest.hexdigest()
 
 

@@ -23,6 +23,9 @@ def main():
     build=json.loads((ROOT/'build-result.json').read_text(encoding='utf-8'))
     if source_digest()!=build['source_sha256']:
         raise RuntimeError('Build inputs changed; rebuild before packaging.')
+    committed=source_digest(lambda file:git('show','HEAD:'+file.relative_to(ROOT).as_posix()))
+    if committed!=build['source_sha256']:
+        raise RuntimeError('Committed build inputs differ. Normalize line endings and rebuild before packaging.')
     validation=json.loads((ROOT/'validation.json').read_text(encoding='utf-8'))
     version=validation['version'];code=validation['version_code']
     if not isinstance(code,int) or code<=0 or not version or not all(c in '0123456789.' for c in version):
