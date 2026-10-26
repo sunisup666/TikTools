@@ -6,6 +6,10 @@
 
 [下载应用](https://github.com/sunisup666/TikTools/releases/latest) · [更新记录](CHANGELOG.md) · [反馈问题](https://github.com/sunisup666/TikTools/issues) · [隐私说明](docs/PRIVACY.md)
 
+**English settings:** Open **Overview → App language** and choose **English**, **简体中文**, or **Follow system**. Settings, preset names, the map and validation messages support both languages. Android 13+ also offers the same choice in system app-language settings.
+
+界面语言可在“概览 → 界面语言”中选择跟随系统、English 或简体中文，也可使用 Android 系统的应用语言设置。切换显示语言保留模块参数和功能开关；TikTok 语言模拟仍由“地区”页面独立控制。
+
 ## 使用条件
 
 - Android 13 或以上、ARM64。

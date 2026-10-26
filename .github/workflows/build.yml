@@ -34,5 +34,7 @@ jobs:
           mkdir -p build/map-math
           javac -d build/map-math app/src/main/java/io/github/sunisup666/tiktools/WebMercator.java tools/MapMathCheck.java
           java -cp build/map-math MapMathCheck
+      - name: Localization completeness and format checks
+        run: python3 tools/check_locales.py
       - name: Compile app and diagnostic app
         run: gradle --no-daemon :app:assembleDebug :probe:assembleDebug --console=plain

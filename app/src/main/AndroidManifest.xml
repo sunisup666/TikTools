@@ -6,9 +6,9 @@
         <package android:name="com.zhiliaoapp.musically"/>
         <package android:name="io.github.sunisup666.tiktools.probe"/>
     </queries>
-    <application android:label="TikTools" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:supportsRtl="true">
+    <application android:label="TikTools" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:supportsRtl="true" android:localeConfig="@xml/locales_config">
         <meta-data android:name="xposedmodule" android:value="true"/>
-        <meta-data android:name="xposeddescription" android:value="TikTok 区域、定位、设备信息和界面工具；功能独立开关，提供本机诊断。"/>
+        <meta-data android:name="xposeddescription" android:value="@string/module_description"/>
         <meta-data android:name="xposedminversion" android:value="82"/>
         <meta-data android:name="xposedscope" android:resource="@array/xposed_scope"/>
         <activity android:name=".MainActivity" android:exported="true">

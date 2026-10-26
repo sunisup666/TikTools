@@ -6,4 +6,5 @@
     <application android:label="TikTools 自检" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:allowBackup="false">
         <activity android:name=".ProbeActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
     </application>
+    <instrumentation android:name=".LocaleInstrumentation" android:targetPackage="io.github.sunisup666.tiktools.probe"/>
 </manifest>

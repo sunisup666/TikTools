@@ -1,5 +1,6 @@
 """Remove the temporary diagnostic app and confirm the installed module using normal settings."""
 import json
+import argparse
 from pathlib import Path
 import re
 import subprocess
@@ -16,6 +17,7 @@ def adb(*args):return subprocess.check_output(ADB+list(args),timeout=35)
 def root(command):return adb('exec-out','su','-c',command)
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--config-baseline',type=Path);args=parser.parse_args()
     cli='sh /data/adb/modules/zygisk_vector/cli --json '
     scope=json.loads(root(cli+'scope ls '+MODULE))
     if any(x['APP_PACKAGE']=='io.github.sunisup666.tiktools.probe' for x in scope['data']):
@@ -42,13 +44,13 @@ def main():
     build=json.loads((ROOT/'build-result.json').read_text(encoding='utf-8'));assert installed==build['apks'][0]['sha256']
     cfg_raw=root('cat /data/user_de/0/'+MODULE+'/shared_prefs/tiktools.xml');cfg=json.loads(next(n.text for n in ET.fromstring(cfg_raw) if n.get('name')=='config'))
     (OUT/'final-user-config.xml').write_bytes(cfg_raw)
-    saved=OUT/'presets-map/settings-before.xml'
-    if saved.exists():
+    saved=args.config_baseline
+    if saved is not None:
         before=json.loads(next(n.text for n in ET.fromstring(saved.read_bytes()) if n.get('name')=='config'))
         assert all(cfg.get(k)==v for k,v in before.items() if isinstance(v,bool))
-    launcher=adb('shell','cmd','package','resolve-activity','--brief','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',MODULE).decode();assert 'LauncherAlias' in launcher
+    launcher=adb('shell','cmd','package','resolve-activity','--brief','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',MODULE).decode();launcher_visible='LauncherAlias' in launcher;assert launcher_visible!=cfg.get('hide_icon',False)
     stay_awake=adb('shell','settings','get','global','stay_on_while_plugged_in').decode().strip()
-    result={'module':report['module'],'installed_apk_sha256':installed,'normal_config_cold_start_seconds':24,'same_process':True,'new_crash':False,'feature_switches_preserved':True,'probe_removed':True,'scope':scope,'modules':states,'launcher_visible':True,'stay_awake':stay_awake}
+    result={'module':report['module'],'installed_apk_sha256':installed,'normal_config_cold_start_seconds':24,'same_process':True,'new_crash':False,'feature_switches_preserved':True if saved is not None else None,'probe_removed':True,'scope':scope,'modules':states,'launcher_visible':launcher_visible,'stay_awake':stay_awake}
     (OUT/'final-device-state.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(result,ensure_ascii=False),flush=True)
 
 if __name__=='__main__':main()

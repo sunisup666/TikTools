@@ -3,7 +3,9 @@ package io.github.sunisup666.tiktools;
 import org.json.JSONObject;
 public final class Presets {
     public record Region(String name, String iso, String operator, String mcc, String locale, String zone, double lat, double lon) {
-        @Override public String toString() { return name + " · " + iso.toUpperCase(); }
+        public String displayName(android.content.Context context){return iso.equals("cn")?context.getString(R.string.country_cn):new java.util.Locale("",iso.toUpperCase(java.util.Locale.ROOT)).getDisplayCountry(java.util.Locale.forLanguageTag(context.getString(R.string.ui_locale_tag)));}
+        public String label(android.content.Context context){return displayName(context)+" · "+iso.toUpperCase(java.util.Locale.ROOT);}
+        @Override public String toString() { return name + " · " + iso.toUpperCase(java.util.Locale.ROOT); }
         public void apply(JSONObject j) throws Exception {
             apply(j,true);
         }
@@ -42,31 +44,32 @@ public final class Presets {
         for (Region r:ALL) if (r.iso().equalsIgnoreCase(iso)) return r;
         return null;
     }
-    public record City(String name,String iso,double lat,double lon,String zone){
+    public record City(String name,int nameResource,String iso,double lat,double lon,String zone){
+        public String label(android.content.Context context){Region r=find(iso);return (r==null?iso:r.displayName(context))+" · "+context.getString(nameResource);}
         @Override public String toString(){Region r=find(iso);return (r==null?iso:r.name())+" · "+name;}
         public void apply(JSONObject j)throws Exception{Region region=find(iso);if(region!=null)region.apply(j,false);j.put("lat",Double.toString(lat)).put("lon",Double.toString(lon)).put("tz",zone).put("location_source","city").put("location_name",toString()).put("location_country",iso).put("location_timezone",zone);}
     }
     public static String defaultCity(String iso){for(City c:CITIES)if(c.iso().equalsIgnoreCase(iso))return c.toString();return "地区默认坐标";}
     public static final City[] CITIES={
-        new City("马尼拉","ph",14.5995,120.9842,"Asia/Manila"),new City("宿务","ph",10.3157,123.8854,"Asia/Manila"),
-        new City("东京","jp",35.6762,139.6503,"Asia/Tokyo"),new City("大阪","jp",34.6937,135.5023,"Asia/Tokyo"),new City("京都","jp",35.0116,135.7681,"Asia/Tokyo"),
-        new City("洛杉矶","us",34.0522,-118.2437,"America/Los_Angeles"),new City("纽约","us",40.7128,-74.0060,"America/New_York"),new City("旧金山","us",37.7749,-122.4194,"America/Los_Angeles"),new City("芝加哥","us",41.8781,-87.6298,"America/Chicago"),
-        new City("伦敦","gb",51.5074,-0.1278,"Europe/London"),new City("曼彻斯特","gb",53.4808,-2.2426,"Europe/London"),
-        new City("新加坡","sg",1.3521,103.8198,"Asia/Singapore"),new City("吉隆坡","my",3.1390,101.6869,"Asia/Kuala_Lumpur"),new City("槟城","my",5.4141,100.3288,"Asia/Kuala_Lumpur"),
-        new City("雅加达","id",-6.2088,106.8456,"Asia/Jakarta"),new City("巴厘岛登巴萨","id",-8.6705,115.2126,"Asia/Makassar"),
-        new City("曼谷","th",13.7563,100.5018,"Asia/Bangkok"),new City("清迈","th",18.7883,98.9853,"Asia/Bangkok"),
-        new City("胡志明市","vn",10.8231,106.6297,"Asia/Ho_Chi_Minh"),new City("河内","vn",21.0278,105.8342,"Asia/Ho_Chi_Minh"),
-        new City("首尔","kr",37.5665,126.9780,"Asia/Seoul"),new City("釜山","kr",35.1796,129.0756,"Asia/Seoul"),
-        new City("柏林","de",52.5200,13.4050,"Europe/Berlin"),new City("慕尼黑","de",48.1351,11.5820,"Europe/Berlin"),
-        new City("巴黎","fr",48.8566,2.3522,"Europe/Paris"),new City("里昂","fr",45.7640,4.8357,"Europe/Paris"),
-        new City("罗马","it",41.9028,12.4964,"Europe/Rome"),new City("米兰","it",45.4642,9.1900,"Europe/Rome"),
-        new City("马德里","es",40.4168,-3.7038,"Europe/Madrid"),new City("巴塞罗那","es",41.3874,2.1686,"Europe/Madrid"),
-        new City("多伦多","ca",43.6532,-79.3832,"America/Toronto"),new City("温哥华","ca",49.2827,-123.1207,"America/Vancouver"),
-        new City("悉尼","au",-33.8688,151.2093,"Australia/Sydney"),new City("墨尔本","au",-37.8136,144.9631,"Australia/Melbourne"),
-        new City("圣保罗","br",-23.5505,-46.6333,"America/Sao_Paulo"),new City("里约热内卢","br",-22.9068,-43.1729,"America/Sao_Paulo"),
-        new City("墨西哥城","mx",19.4326,-99.1332,"America/Mexico_City"),new City("伊斯坦布尔","tr",41.0082,28.9784,"Europe/Istanbul"),
-        new City("迪拜","ae",25.2048,55.2708,"Asia/Dubai"),new City("利雅得","sa",24.7136,46.6753,"Asia/Riyadh"),
-        new City("约翰内斯堡","za",-26.2041,28.0473,"Africa/Johannesburg"),new City("开普敦","za",-33.9249,18.4241,"Africa/Johannesburg"),
-        new City("北京","cn",39.9042,116.4074,"Asia/Shanghai"),new City("上海","cn",31.2304,121.4737,"Asia/Shanghai"),new City("广州","cn",23.1291,113.2644,"Asia/Shanghai"),new City("深圳","cn",22.5431,114.0579,"Asia/Shanghai")
+        new City("马尼拉",R.string.city_0,"ph",14.5995,120.9842,"Asia/Manila"),new City("宿务",R.string.city_1,"ph",10.3157,123.8854,"Asia/Manila"),
+        new City("东京",R.string.city_2,"jp",35.6762,139.6503,"Asia/Tokyo"),new City("大阪",R.string.city_3,"jp",34.6937,135.5023,"Asia/Tokyo"),new City("京都",R.string.city_4,"jp",35.0116,135.7681,"Asia/Tokyo"),
+        new City("洛杉矶",R.string.city_5,"us",34.0522,-118.2437,"America/Los_Angeles"),new City("纽约",R.string.city_6,"us",40.7128,-74.0060,"America/New_York"),new City("旧金山",R.string.city_7,"us",37.7749,-122.4194,"America/Los_Angeles"),new City("芝加哥",R.string.city_8,"us",41.8781,-87.6298,"America/Chicago"),
+        new City("伦敦",R.string.city_9,"gb",51.5074,-0.1278,"Europe/London"),new City("曼彻斯特",R.string.city_10,"gb",53.4808,-2.2426,"Europe/London"),
+        new City("新加坡",R.string.city_11,"sg",1.3521,103.8198,"Asia/Singapore"),new City("吉隆坡",R.string.city_12,"my",3.1390,101.6869,"Asia/Kuala_Lumpur"),new City("槟城",R.string.city_13,"my",5.4141,100.3288,"Asia/Kuala_Lumpur"),
+        new City("雅加达",R.string.city_14,"id",-6.2088,106.8456,"Asia/Jakarta"),new City("巴厘岛登巴萨",R.string.city_15,"id",-8.6705,115.2126,"Asia/Makassar"),
+        new City("曼谷",R.string.city_16,"th",13.7563,100.5018,"Asia/Bangkok"),new City("清迈",R.string.city_17,"th",18.7883,98.9853,"Asia/Bangkok"),
+        new City("胡志明市",R.string.city_18,"vn",10.8231,106.6297,"Asia/Ho_Chi_Minh"),new City("河内",R.string.city_19,"vn",21.0278,105.8342,"Asia/Ho_Chi_Minh"),
+        new City("首尔",R.string.city_20,"kr",37.5665,126.9780,"Asia/Seoul"),new City("釜山",R.string.city_21,"kr",35.1796,129.0756,"Asia/Seoul"),
+        new City("柏林",R.string.city_22,"de",52.5200,13.4050,"Europe/Berlin"),new City("慕尼黑",R.string.city_23,"de",48.1351,11.5820,"Europe/Berlin"),
+        new City("巴黎",R.string.city_24,"fr",48.8566,2.3522,"Europe/Paris"),new City("里昂",R.string.city_25,"fr",45.7640,4.8357,"Europe/Paris"),
+        new City("罗马",R.string.city_26,"it",41.9028,12.4964,"Europe/Rome"),new City("米兰",R.string.city_27,"it",45.4642,9.1900,"Europe/Rome"),
+        new City("马德里",R.string.city_28,"es",40.4168,-3.7038,"Europe/Madrid"),new City("巴塞罗那",R.string.city_29,"es",41.3874,2.1686,"Europe/Madrid"),
+        new City("多伦多",R.string.city_30,"ca",43.6532,-79.3832,"America/Toronto"),new City("温哥华",R.string.city_31,"ca",49.2827,-123.1207,"America/Vancouver"),
+        new City("悉尼",R.string.city_32,"au",-33.8688,151.2093,"Australia/Sydney"),new City("墨尔本",R.string.city_33,"au",-37.8136,144.9631,"Australia/Melbourne"),
+        new City("圣保罗",R.string.city_34,"br",-23.5505,-46.6333,"America/Sao_Paulo"),new City("里约热内卢",R.string.city_35,"br",-22.9068,-43.1729,"America/Sao_Paulo"),
+        new City("墨西哥城",R.string.city_36,"mx",19.4326,-99.1332,"America/Mexico_City"),new City("伊斯坦布尔",R.string.city_37,"tr",41.0082,28.9784,"Europe/Istanbul"),
+        new City("迪拜",R.string.city_38,"ae",25.2048,55.2708,"Asia/Dubai"),new City("利雅得",R.string.city_39,"sa",24.7136,46.6753,"Asia/Riyadh"),
+        new City("约翰内斯堡",R.string.city_40,"za",-26.2041,28.0473,"Africa/Johannesburg"),new City("开普敦",R.string.city_41,"za",-33.9249,18.4241,"Africa/Johannesburg"),
+        new City("北京",R.string.city_42,"cn",39.9042,116.4074,"Asia/Shanghai"),new City("上海",R.string.city_43,"cn",31.2304,121.4737,"Asia/Shanghai"),new City("广州",R.string.city_44,"cn",23.1291,113.2644,"Asia/Shanghai"),new City("深圳",R.string.city_45,"cn",22.5431,114.0579,"Asia/Shanghai")
     };
 }

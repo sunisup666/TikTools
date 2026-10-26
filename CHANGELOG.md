@@ -1,5 +1,15 @@
 # 更新记录
 
+## 0.4.1 · versionCode 6
+
+- 设置界面、地图、23 个地区及 46 个城市预设显示名称、设备预设和参数校验消息支持英文与简体中文。
+- 新增“概览 → 界面语言”：跟随系统、English、简体中文，与 Android 的应用语言设置同步。
+- 切换界面语言保留现有配置、自定义名称、TikTok 语言模拟参数和翻译目标语言。
+- 长英文按钮与导航适应内容宽度；地图在语言切换重建后保留未保存选点及城市信息。
+- 避免语言切换后异步任务向已销毁的设置页面显示对话框。
+
+English: Settings and map localization, an app-language picker (system / English / Simplified Chinese), localized presets and validation, and layout/lifecycle fixes. Addresses [#1](https://github.com/sunisup666/TikTools/issues/1).
+
 ## 0.4.0 · versionCode 5
 
 TikTools 首个公开版本，应用包名为 `io.github.sunisup666.tiktools`。

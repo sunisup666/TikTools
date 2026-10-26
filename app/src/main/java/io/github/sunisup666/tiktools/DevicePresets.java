@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public final class DevicePresets {
     public record Device(String label,String brand,String manufacturer,String model,String device,String product,String board,String hardware,String fingerprint){
+        public String label(android.content.Context context){return UiText.label(context,label);}
         @Override public String toString(){return label;}
         public void apply(JSONObject j)throws Exception{
             String[] keys={"brand","manufacturer","model","device","product","board","hardware","fingerprint"};

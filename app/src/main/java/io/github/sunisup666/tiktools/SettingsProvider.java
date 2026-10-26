@@ -82,7 +82,7 @@ public final class SettingsProvider extends ContentProvider {
                 }
                 default -> throw new IllegalArgumentException("Unknown operation");
             }
-        } catch (Exception e) { result.putBoolean("ok",false);result.putString("error",e.getClass().getSimpleName()+": "+e.getMessage()); }
+        } catch (Exception e) { result.putBoolean("ok",false);result.putString("error",e.getClass().getSimpleName()+": "+UiText.error(getContext(),e)); }
         finally { Binder.restoreCallingIdentity(identity); }
         return result;
     }
@@ -96,9 +96,9 @@ public final class SettingsProvider extends ContentProvider {
         conn.setConnectTimeout(7000);conn.setReadTimeout(7000);conn.setRequestProperty("User-Agent","TikTools/"+BuildConfig.VERSION_NAME);
         try (InputStream stream=conn.getInputStream()) {
             byte[] data=stream.readNBytes(128*1024);JSONObject response=new JSONObject(new String(data,StandardCharsets.UTF_8));
-            if (!response.optBoolean("success",false)) throw new IllegalStateException("IP 地区查询失败");
+            if (!response.optBoolean("success",false)) throw new UiText.Error(R.string.error_ip_query,"IP country lookup failed");
             String iso=response.getString("country_code");Presets.Region region=Presets.find(iso);
-            if (region==null) throw new IllegalArgumentException("当前 IP 地区没有预设，请手动填写："+iso);
+            if (region==null) throw new UiText.Error(R.string.error_ip_no_preset,"No preset for IP country: "+iso,iso);
             JSONObject j=Config.load(context).json;boolean follow=j.optString("location_source","region").equals("region");String pointCountry=j.optString("location_country",""),pointZone=j.optString("location_timezone","");region.apply(j,follow);if(!follow&&pointCountry.equalsIgnoreCase(iso)&&!pointZone.isEmpty())j.put("tz",pointZone);Config.save(context,j);
             Config.storage(context).getSharedPreferences("status",0).edit().putLong("ip_time",System.currentTimeMillis()).putString("ip_country",iso).apply();
             return region.toString();
