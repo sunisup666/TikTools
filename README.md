@@ -77,12 +77,6 @@ Windows 使用 `gradlew.bat`。本地 Python 构建器也可通过 `--gradle` �
 
 正式签名密钥不在仓库中。首次自行构建会生成本地开发签名，不能覆盖不同签名的官方包。维护者可通过 `TIKTOOLS_KEYSTORE`、`TIKTOOLS_STORE_PASSWORD`、`TIKTOOLS_KEY_ALIAS`、`TIKTOOLS_KEY_PASSWORD` 指定自己的密钥。CI 只验证编译，不生成可覆盖正式版的签名发布包。
 
-## 从内部测试版迁移
-
-旧版 TrillKit 的 `dev.local.trillkit` 包名不满足模块仓库的域名归属规则，公开版统一为 `io.github.sunisup666.tiktools`。
-
-可在旧版导出 JSON，再在 TikTools 导入；当前 Vector CLI 环境也可使用 Root ADB 迁移工具 `python tools/migrate_legacy.py` 备份并迁移旧配置、语言模型和作用域。两版请勿同时启用。迁移不会清除 TikTok 的账号或草稿。
-
 ## 反馈与依赖
 
 提交问题时请说明 TikTools、TikTok、Android 和框架版本，以及停用模块后的表现。不要公开包含登录信息、私人坐标或他人内容的原始截图。
