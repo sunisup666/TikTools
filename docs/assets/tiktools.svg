@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">TikTools</title>
+  <path fill="#176a63" d="M12 2h24q10 0 10 10v24q0 10-10 10H12Q2 46 2 36V12Q2 2 12 2Z"/>
+  <path fill="#fff" d="M12 12h24v6h-9v18h-6V18h-9Z"/>
+  <path fill="#a5e6c7" d="M32 25h5v11h-5Z"/>
+</svg>

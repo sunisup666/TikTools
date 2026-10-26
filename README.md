@@ -1,84 +1,107 @@
-# TikTools
+<div align="center">
+  <img src="docs/assets/tiktools.svg" width="88" height="88" alt="TikTools" />
+  <h1>TikTools</h1>
+  <p>你的 TikTok 工具箱</p>
+  <p>地区预设 · 地图选点 · 设备参数 · 界面工具</p>
+  <p><img src="docs/assets/platforms.svg" width="348" height="28" alt="Android 13+ · Xposed API 82 · MIT" /></p>
+  <p><strong>简体中文</strong> · <a href="README.en.md">English</a></p>
+  <p>
+    <a href="https://github.com/sunisup666/TikTools/releases/latest"><strong>下载最新版本</strong></a> ·
+    <a href="#开始使用">开始使用</a> ·
+    <a href="CHANGELOG.md">更新记录</a> ·
+    <a href="https://github.com/sunisup666/TikTools/issues">问题反馈</a>
+  </p>
+</div>
 
-**TikTok 工具箱 · Xposed 模块**
+## 功能一览
 
-地区预设、地图选点、本机设备参数、界面净化、评论过滤和本机翻译。设置分组控制，修改只在已勾选的目标应用进程中生效。
+| 功能 | 可以做什么 |
+| :--- | :--- |
+| **地区预设** | 23 个地区，成套填入运营商、MCC/MNC、语言、时区和默认城市坐标。 |
+| **定位与地图** | 46 个常用城市、地图点选、缩放和平移，支持固定点、漂移、圆形行走与自定义路线。 |
+| **设备参数** | 读取本机配套字段，提供适用机型的同平台模板，保留手动调整入口。 |
+| **界面工具** | 按组控制导航、侧边按钮、作者、文案、音乐等视图规则，支持关键词评论过滤。 |
+| **翻译与保存** | 使用 ML Kit 在本机翻译；确认后保存可明确匹配当前内容的视频直链。 |
+| **配置管理** | JSON 导入导出、坐标收藏、桌面入口控制和本机诊断。 |
 
-[下载应用](https://github.com/sunisup666/TikTools/releases/latest) · [更新记录](CHANGELOG.md) · [反馈问题](https://github.com/sunisup666/TikTools/issues) · [隐私说明](docs/PRIVACY.md)
+## 开始使用
 
-**English settings:** Open **Overview → App language** and choose **English**, **简体中文**, or **Follow system**. Settings, preset names, the map and validation messages support both languages. Android 13+ also offers the same choice in system app-language settings.
+**使用条件：** Android 13 或以上、ARM64，以及已启用的 Vector 或兼容 LSPosed / Xposed 框架。模块使用传统 Xposed API 82。
 
-界面语言可在“概览 → 界面语言”中选择跟随系统、English 或简体中文，也可使用 Android 系统的应用语言设置。切换显示语言保留模块参数和功能开关；TikTok 语言模拟仍由“地区”页面独立控制。
+1. 从 [Releases](https://github.com/sunisup666/TikTools/releases/latest) 下载并安装 APK。
+2. 在框架中启用 **TikTools**，只勾选实际使用的 TikTok。其他修改相同接口的插件请先停用。
+3. 打开 TikTools，启用总开关，再按需打开各组功能。
+4. 修改参数后，强行停止并重新打开 TikTok。
 
-## 使用条件
+需要下载或翻译入口时，在 **界面 → 显示应用内工具入口** 中打开 **TT** 按钮。
 
-- Android 13 或以上、ARM64。
-- 已安装并启用 Vector 或兼容的 LSPosed / Xposed 框架。
-- 包名 `io.github.sunisup666.tiktools`，使用传统 Xposed API 82。
-- 已验证：Redmi K40、Android 17、Vector 2.2，TikTok `com.ss.android.ugc.trill` **47.4.3 / 470403**。
-- 支持将 `com.zhiliaoapp.musically` 加入作用域；该包及其他 TikTok 版本的界面适配尚未完整验证。
+## 界面语言
 
-## 安装
+在 **概览 → 界面语言** 中选择：
 
-1. 从 [Releases](https://github.com/sunisup666/TikTools/releases/latest) 安装 APK。
-2. 在 Vector / LSPosed 中启用 **TikTools**，勾选实际使用的 TikTok。其他会修改相同接口的插件请先停用。
-3. 打开 TikTools，开启总开关，按需启用各组功能。
-4. 设置改变后，强行停止并重新打开 TikTok。
+| 选项 | 显示方式 |
+| :--- | :--- |
+| **跟随系统** | 跟随系统语言；未提供对应翻译时使用英文。 |
+| **English** | 英文设置、地图、预设名称和校验提示。 |
+| **简体中文** | 简体中文设置、地图、预设名称和校验提示。 |
 
-下载和应用内翻译入口：在“界面”中打开“显示应用内工具入口”，然后点击 TikTok 内的 **TT** 按钮。
+也可使用 Android 系统的应用语言设置。切换显示语言无需联网，并保留现有模块参数。TikTok 语言模拟仍在“地区”页面独立控制。
 
 ## 预设与地图
 
-| 页面 | 操作 |
-| --- | --- |
-| 地区 | 23 个地区预设，一键填入运营商、MCC/MNC、语言、时区和默认城市坐标。手动选择后关闭 IP 联动，避免随后被覆盖。 |
-| 定位 | 46 个常用城市，可按城市或国家搜索；城市预设自动匹配地区及时区。 |
-| 地图选点 | 拖动、缩放、点击标记。点击“使用此位置”才保存，取消不改变原参数。采用 WGS84，不读取手机真实 GPS。 |
-| 设备 | 选择“本机真实设备（推荐）”，自动读取成套设备字段与真实系统版本。当前 alioth 平台还提供 Redmi K40 / POCO F3 常用字段模板。 |
+| 想做的事 | 推荐入口 |
+| :--- | :--- |
+| 一次填好地区参数 | **地区 → 选择国家/地区** |
+| 使用常见城市坐标 | **定位 → 选择常用城市**，支持城市或国家搜索 |
+| 精确选择位置 | **定位 → 地图选点**，点击“使用此位置”才保存，取消不更改参数 |
+| 使用本机设备字段 | **设备 → 选择设备预设 → 本机真实设备（推荐）** |
 
-地图或城市选定的坐标固定保留，IP 更新不会重置它。需要重新跟随地区时，点击“恢复跟随地区坐标”。手动输入保留在“手动调整”中。在线地图需要联网，常用城市预设可以离线使用。
+地图采用 **WGS84**，不读取真实 GPS。手选或城市预设的坐标会固定保留，IP 国家更新不会覆盖；需要重新跟随地区时，可选择“恢复跟随地区坐标”。手动选地区或城市后会关闭 IP 联动。
 
-## 其他功能
-
-- 模拟目标进程读取的 SIM/网络国家、运营商、Locale、时区、定位、基站、Wi-Fi 和 Build 字段。
-- 固定点、位置漂移、圆形行走和自定义路线往返；坐标收藏。
-- 顶部/频道/底部导航、侧边按钮、作者、文案、音乐等界面规则；关键词评论过滤和自定义资源匹配。
-- Google ML Kit 本机翻译。首次使用在“工具”中下载所需语言模型；通常需要 Wi-Fi。
-- 按当前可见文案关联可识别的视频直链，确认后交给系统下载管理器保存。
-- JSON 配置导入导出、桌面图标控制和本机诊断。
-
-基站/Wi-Fi 是独立测试参数，不代表所选城市的真实网络。设备模板只模拟应用内信息，不改变实际硬件。系统版本模拟可能影响接口选择，默认保持真实值。
+常用城市预设可离线使用。在线地图需要联网，翻译首次使用需要下载语言模型。基站和 Wi-Fi 字段是独立测试参数，不代表所选城市的真实网络。
 
 ## 适配范围
 
-接口挂钩成功不等于服务端行为一定改变；内容地区还受账号和网络出口影响。定位功能修改已读取的 `Location`，不会凭空产生系统未提供的定位事件。
+| 项目 | 当前记录 |
+| :--- | :--- |
+| 应用包名 | `io.github.sunisup666.tiktools` |
+| 已记录的实机基线 | Redmi K40 · Android 17 · Vector 2.2 |
+| TikTok 基线 | `com.ss.android.ugc.trill` · 47.4.3 / 470403 |
+| 另一 TikTok 包名 | 可加入 `com.zhiliaoapp.musically` 作用域，尚未完整验证 |
+| 其他应用 | 抖音、快手、小红书不在当前适配范围 |
 
-界面规则只隐藏可识别的小视图，保留包含播放器的容器。部分角标、推广、地点及不同评论布局仅有通用匹配；无法保证所有页面均生效。媒体保存不处理直播、图片帖、DRM、分段流或需要额外身份认证的地址；无法明确对应当前视频时不提供直链。
+界面规则只处理可识别的小视图，部分规则依赖具体版本。保存不支持直播、图片帖、DRM、分段流或无法明确对应当前内容的地址。具体结果见 [验证记录](docs/TESTING.md)。
 
-当前测试说明见 [TESTING](docs/TESTING.md)。短时间复测不代表未来版本兼容性或长期稳定性。
+地区还受账号和网络出口影响；进程内字段模拟不会改变真实硬件或保证服务端行为。定位功能修改应用读取的 `Location`，不会产生系统未提供的定位事件。
 
-给其他工程 Agent 的分析、实现和验证方法见 [应用插件分析指南](docs/APP_PLUGIN_ANALYSIS_GUIDE.md)，包含从停用对照到实机验收、迁移发布的步骤和交接模板。
+## 构建与开发
 
-## 构建
+<details>
+<summary><strong>展开本地构建步骤</strong></summary>
 
-需要 JDK 17、Android SDK 36、Build Tools 36.1.0、Python 3。在 `local.properties` 中填写本机 SDK 路径，或设置 `ANDROID_HOME`：
+需要 JDK 17、Android SDK 36、Build Tools 36.1.0 和 Python 3。设置 `ANDROID_HOME`，或在 `local.properties` 中填写 SDK 路径：
 
 ```properties
 sdk.dir=C:/Android/Sdk
 ```
 
 ```sh
+git clone https://github.com/sunisup666/TikTools.git
+cd TikTools
 ./gradlew :app:assembleDebug :probe:assembleDebug
 python tools/build.py
-python tools/build.py --install
 ```
 
-Windows 使用 `gradlew.bat`。本地 Python 构建器也可通过 `--gradle` 指定已安装的 Gradle 8.14.3，通过 `--proxy http://127.0.0.1:10808` 指定代理；默认读取 `HTTPS_PROXY` / `HTTP_PROXY`。设备脚本默认使用 ADB 当前连接的设备，也可设置 `ANDROID_SERIAL`。
+Windows 使用 `gradlew.bat`。Python 构建器支持 `--install`、`--gradle` 和 `--proxy`；设备脚本默认使用 ADB 当前连接的设备，也可设置 `ANDROID_SERIAL`。
 
-正式签名密钥不在仓库中。首次自行构建会生成本地开发签名，不能覆盖不同签名的官方包。维护者可通过 `TIKTOOLS_KEYSTORE`、`TIKTOOLS_STORE_PASSWORD`、`TIKTOOLS_KEY_ALIAS`、`TIKTOOLS_KEY_PASSWORD` 指定自己的密钥。CI 只验证编译，不生成可覆盖正式版的签名发布包。
+正式签名密钥不随源码提供。维护者可使用 `TIKTOOLS_KEYSTORE`、`TIKTOOLS_STORE_PASSWORD`、`TIKTOOLS_KEY_ALIAS`、`TIKTOOLS_KEY_PASSWORD` 指定签名；自行生成的开发签名不能覆盖不同签名的发布包。更多步骤见 [发布说明](docs/RELEASING.md)。
 
-## 反馈与依赖
+</details>
 
-提交问题时请说明 TikTools、TikTok、Android 和框架版本，以及停用模块后的表现。不要公开包含登录信息、私人坐标或他人内容的原始截图。
+[应用插件分析指南](docs/APP_PLUGIN_ANALYSIS_GUIDE.md)记录了排查、实现、实机验证与 Agent 交接方法，供分析其他应用和开发插件时参考。
 
-本项目独立实现，也不代表 TikTok 官方。第三方组件及地图服务信息见 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md)。项目代码版权归 sunisup666，尚未指定项目级开源许可证。
+## 反馈与许可证
+
+通过 [Issues](https://github.com/sunisup666/TikTools/issues) 提问或反馈，附上 TikTools、TikTok、Android 和框架版本，以及停用模块后的表现。日志和截图请先移除私人信息。
+
+本项目采用 [MIT License](LICENSE)。第三方组件与地图服务的条款见 [依赖说明](THIRD_PARTY_NOTICES.md)，数据处理方式见 [隐私说明](docs/PRIVACY.md)。

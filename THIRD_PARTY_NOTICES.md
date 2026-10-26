@@ -1,6 +1,6 @@
 # Third-party components
 
-TikTools contains independently implemented module and settings code. It is not affiliated with TikTok.
+This document lists the external components and services used by TikTools.
 
 ## Xposed API 82
 
@@ -28,4 +28,4 @@ The interactive map loads the currently visible OpenStreetMap tiles over HTTPS a
 
 ## Project source
 
-Copyright © 2026 sunisup666. No project-wide open-source license has been selected. Third-party components retain their separate licenses.
+TikTools project source is licensed under the [MIT License](LICENSE). Third-party components and models retain their upstream licenses and terms.

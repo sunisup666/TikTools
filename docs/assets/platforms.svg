@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="348" height="28" viewBox="0 0 348 28" role="img" aria-labelledby="title">
+  <title id="title">Android 13+, Xposed API 82, MIT</title>
+  <g fill="#e6f1ed">
+    <rect width="112" height="28" rx="6"/>
+    <rect x="120" width="144" height="28" rx="6"/>
+  </g>
+  <rect x="272" width="76" height="28" rx="6" fill="#176a63"/>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
+    <text x="56" y="18" fill="#176a63">Android 13+</text>
+    <text x="192" y="18" fill="#176a63">Xposed API 82</text>
+    <text x="310" y="18" fill="#fff">MIT</text>
+  </g>
+</svg>
